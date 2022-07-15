@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Logic {
-    public static void printIt(String filePath) {
+    public static void printIt(String filePath, String white, String black) {
         BufferedImage imageIt = null;
 
         try {
@@ -19,10 +19,10 @@ public class Logic {
         for (int y = 0; y < imageIt.getHeight(); y++) {
             for (int x = 0; x < imageIt.getWidth(); x++) {
                 if (imageIt.getRGB(x, y) == -1) {
-                    System.out.print(".");
+                    System.out.print(black);                ;
                 }
                 else {
-                    System.out.print("0");
+                    System.out.print(white);
                 }
             }
             System.out.println();

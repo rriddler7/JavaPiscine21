@@ -5,8 +5,7 @@ rm -rf target
 mkdir target
 
 # compile project
-#javac -sourcepath ./src/java/ -d ./target/ ./src/java/edu/school21/printer/*/*.java
-javac -sourcepath ./src/java `find . -name "*.java"` -d target
+javac -d ./target src/java/edu/school21/printer/*/*.java
 
 # run project
-java -cp ./target/ Program . 0 ./it.bmp
+java -cp target edu.school21.printer.app.Program /Users/rriddler/Desktop/Java/module04/ex00/ImagesToChar/it.bmp . 0
