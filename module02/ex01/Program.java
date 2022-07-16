@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 public class Program {
     public static void main(String[] args) {
-
-
-
         //прочитать файлы по словам
 //    List<String> file1 = readFile("/Users/rriddler/Desktop/Java/module02/ex01/inputA.txt");
         List<String> file1 = Arrays.stream("aaa bba bba a ссс".split(" +")).collect(Collectors.toList());

@@ -1,4 +1,4 @@
-package ex00;
+package ex03;
 
 import java.util.UUID;
 
@@ -33,6 +33,8 @@ public class Transaction {
         else {
             sender.setBalance(sender.getBalance() + amount);
             recipient.setBalance(recipient.getBalance() - amount);
+            sender.getTransactions().add(this);
+            recipient.getTransactions().add(this);
         }
     }
 
@@ -84,8 +86,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("%s -> %s, %d, %s", sender.getName(), recipient.getName(), amount, transaction);
+        return String.format("%s -> %s, %d, %s, %s", sender.getName(),
+                recipient.getName(), amount, transaction, identifier);
     }
 }
-
-
