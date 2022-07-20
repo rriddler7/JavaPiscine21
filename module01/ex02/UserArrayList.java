@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class UserArrayList implements UserList {
-//    private Integer size = 0;
-//    private Integer capacity = 10;
-//    private User[] users = new User[capacity];
-
     private Integer size;
     private Integer capacity;
     private User[] users;

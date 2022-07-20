@@ -1,28 +1,31 @@
 package ex03;
 
 public class Program {
-    public static void main(String[] args) throws ex03.UserArrayList.UserNotFoundException {
+    public static void main(String[] args) throws TransactionsLinkedList.TransactionNotFoundException {
         UserArrayList userList = new UserArrayList();
 
-        User bob = new User("Bob", 10000);
-        User jack = new User("Jack", 10);
+        User tom = new User("Tom", 10000);
+        User jerry = new User("Jerry", 10);
+        Transaction transaction = Transaction.createTransaction(tom, jerry, Transaction.Category.OUTCOME, -5000);
+        System.out.println(transaction);
+        System.out.println("Tom " + tom.getBalance());
+        System.out.println("Jerry " + jerry.getBalance());
+        System.out.println("_____________");
+        Transaction transaction2 = Transaction.createTransaction(tom, jerry, Transaction.Category.INCOME, 2000);
+        System.out.println(transaction2);
+        System.out.println("Tom " + tom.getBalance());
+        System.out.println("Jerry " + jerry.getBalance());
+        System.out.println("_____________");
+        Transaction transaction3 = Transaction.createTransaction(tom, jerry, Transaction.Category.OUTCOME, -6000);
+        System.out.println(transaction3);
+        System.out.println("Tom " + tom.getBalance());
+        System.out.println("Jerry " + jerry.getBalance());
 
-        Transaction transaction = null;
-        try {
-            transaction = new Transaction(jack, bob, -9000);
-            System.out.println(transaction);
-            Transaction transaction2 = new Transaction(jack, bob, 10000);
-            System.out.println(transaction2);
-            Transaction transaction3 = new Transaction(jack, bob, -1000);
-            System.out.println(transaction3);
-        }
-        catch (Transaction.BalanceException e) {
-            e.printStackTrace();
-        }
-        System.out.println(jack.getTransactions());
-        System.out.println(bob.getTransactions());
-        bob.getTransactions().remove(transaction.getIdentifier());
-        System.out.println(jack.getTransactions());
-        System.out.println(bob.getTransactions());
+        
+        System.out.println(tom.getTransactions());
+        System.out.println(jerry.getTransactions());
+        tom.getTransactions().remove(transaction.getIdentifier());
+        System.out.println(tom.getTransactions());
+        System.out.println(jerry.getTransactions());
     }
 }

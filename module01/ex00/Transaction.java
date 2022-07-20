@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Transaction {
 
-    enum Category {
+    public enum Category {
         INCOME,
         OUTCOME
     }
@@ -12,33 +12,31 @@ public class Transaction {
     private UUID identifier;
     private User  recipient;
     private User sender;
-    private Category transaction;
+    private Category transactionType;
     private Integer amount;
 
-    public Transaction(User recipient, User sender, Integer amount) throws BalanceException {
-        this.recipient = recipient;
+    private Transaction(User sender, User recipient, Category transactionType, Integer amount) {
         this.sender = sender;
+        this.recipient = recipient;
         this.amount = amount;
-        if (amount < 0) {
-            setTransaction(Category.OUTCOME);
-        }
-        else {
-            setTransaction(Category.INCOME);
-        }
+        this.transactionType = transactionType;
         identifier = UUID.randomUUID();
-
-        if (sender.getBalance() < 0 || sender.getBalance() < -amount) {
-            throw new BalanceException("Insufficient balance");
-        }
-        else {
-            sender.setBalance(sender.getBalance() + amount);
-            recipient.setBalance(recipient.getBalance() - amount);
-        }
     }
 
-    public class BalanceException extends Exception {
-        public BalanceException(String message) {
-            super(message);
+    public static Transaction createTransaction(User sender, User recipient, Category transactionType, Integer amount) {
+        if (transactionType == Category.OUTCOME && amount < 0 && sender.getBalance() >= -amount) {
+            sender.setBalance(sender.getBalance() + amount);
+            recipient.setBalance(recipient.getBalance() - amount);
+            return new Transaction(sender, recipient, transactionType, amount);
+        }
+        else if (transactionType == Category.INCOME && amount > 0 && recipient.getBalance() >= amount) {
+            sender.setBalance(sender.getBalance() + amount);
+            recipient.setBalance(recipient.getBalance() - amount);
+            return new Transaction(sender, recipient, transactionType, amount);
+        }
+        else {
+            System.err.println("Insufficient balance");
+            return null;
         }
     }
 
@@ -66,12 +64,12 @@ public class Transaction {
         this.sender = sender;
     }
 
-    public Category getTransaction() {
-        return transaction;
+    public Category getTransactionType() {
+        return transactionType;
     }
 
-    public void setTransaction(Category transaction) {
-        this.transaction = transaction;
+    public void setTransactionType(Category transactionType) {
+        this.transactionType = transactionType;
     }
 
     public Integer getAmount() {
@@ -84,7 +82,14 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("%s -> %s, %d, %s", sender.getName(), recipient.getName(), amount, transaction);
+        if (transactionType == Category.OUTCOME) {
+            return String.format("%s -> %s, %d, %s, %s", sender.getName(),
+                    recipient.getName(), amount, transactionType, identifier);
+        }
+        else {
+            return String.format("%s <- %s, %d, %s, %s", sender.getName(),
+                    recipient.getName(), amount, transactionType, identifier);
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package ex02;
+//package ex02;
 
 import java.util.Scanner;
 
@@ -29,14 +29,27 @@ public class Program {
         long requestnmb = 0;
         int coffeerequest = 0;
         long sumdigit = 0;
+
         while (input.hasNextLong()) {
             requestnmb = input.nextLong();
-            if (requestnmb == 42)
-                break;
+            if (requestnmb == 42) {
+                System.out.println("Count of coffee-request - " + coffeerequest);
+                return;
+            }
+
+            if (requestnmb <= 1) {
+                System.err.println("IllegalArgument");
+                System.exit(-1);
+            }
             sumdigit = sumdigit(requestnmb);
             if (sumdigit > 1 && primenmb(sumdigit) > 0)
                 coffeerequest++;
         }
-        System.out.println("Count of coffee-request - " + coffeerequest);
+        if (input.hasNext()) {
+            System.err.println("IllegalArgument");
+            System.exit(-1);
+        }
+
+
     }
 }

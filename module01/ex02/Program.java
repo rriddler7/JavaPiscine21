@@ -8,8 +8,9 @@ public class Program {
             user = new User("User" + i, i * 1000);
             userList.addUser(user);
         }
-        System.out.println("User in the middle of array: " + userList.getUserByIndex(15 / 2));
+        System.out.println("User: " + userList.getUserByIndex(15 / 2));
         System.out.println("User: " + userList.getUserByID(15));
         System.out.println("Total capacity: " + userList.getUsersNumber());
+        System.out.println("User: " + userList.getUserByIndex(20));
     }
 }

@@ -1,7 +1,5 @@
 package ex02;
 
-import ex01.UserIdsGenerator;
-
 public class User {
     private Integer id;
     private String name;
@@ -35,7 +33,9 @@ public class User {
     }
 
     public void setBalance(Integer balance) {
-        this.balance = balance;
+        if (balance >= 0) {
+            this.balance = balance;
+        }
     }
 
     @Override
